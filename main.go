@@ -8,7 +8,9 @@ func init() {
 
 func main() {
 	for _, listener := range models.Config.Listeners {
-		go listener.Serve()
+		go func(l models.Listener) {
+			l.Serve()
+		}(listener)
 	}
 
 	waitChan := make(chan struct{})
